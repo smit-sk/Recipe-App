@@ -1,4 +1,5 @@
 {
+  
   "expo": {
     "name": "Recipe-App",
     "slug": "Recipe-App",
@@ -25,6 +26,14 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra":{
+      "apiKey": "AIzaSyDlRsTETuZg7_UvmyVERSG21TZaZIK5bb0",
+      "authDomain": "recipe-app-9d171.firebaseapp.com",
+      "projectId": "recipe-app-9d171",
+      "storageBucket": "recipe-app-9d171.appspot.com",
+      "messagingSenderId": "719631933303",
+      "appId": "1:719631933303:web:a2f2ee0e353d5a5c228b72"
     }
   }
 }
