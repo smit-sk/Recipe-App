@@ -22,7 +22,7 @@ export default function App() {
         />
         <Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false}} />
           <Stack.Screen name="Signup" component={SignUpScreen} options={
-          {
+          { 
             headerShown: false
           }} />
           <Stack.Screen name="Forgot" component={ForgotPasswordScreen} options={

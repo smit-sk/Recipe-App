@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { styles } from './styles';
 import { Ionicons } from '@expo/vector-icons';
@@ -73,7 +73,10 @@ const SignUpScreen = ({ navigation }) => {
   };
 
   return (
+    
     <View style={styles.container}>
+    
+    <ScrollView contentContainerStyle={styles.scrollContent}>
       <Ionicons.Button
         name="ios-chevron-back-sharp"
         size={34}
@@ -132,7 +135,9 @@ const SignUpScreen = ({ navigation }) => {
           <Text style={styles.buttonText}>Sign Up</Text>
         </TouchableOpacity>
       </View>
+      </ScrollView>
     </View>
+    
   );
 };
 

@@ -2,6 +2,8 @@
 
 import { initializeApp } from "firebase/app";
 import 'firebase/auth';
+import { AppRegistry } from 'react-native';
+
 
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -20,4 +22,5 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const firebase = initializeApp(firebaseConfig);
+
 export default firebase;

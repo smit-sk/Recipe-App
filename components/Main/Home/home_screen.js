@@ -3,8 +3,8 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ProfileScreen from '../Profile/profile';
 import AllRecipeScreen from '../All Recipe/all_recipe_screen';
-import AddRecipeScreen from '../Add Recipe/styles';
 import { Entypo , MaterialCommunityIcons } from '@expo/vector-icons';
+import AddRecipeScreen from '../Add Recipe/add_recipe_screen';
 
 const Tab = createBottomTabNavigator();
 

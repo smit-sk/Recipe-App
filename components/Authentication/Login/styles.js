@@ -24,14 +24,16 @@ export const styles = StyleSheet.create({
       },
       forgotText: {
         color: '#afafaf',
-        fontWeight: '700',
+        fontWeight: '400',
+        fontSize:14,
       },
       input: {
         width: '100%',
         height: 40,
         marginBottom: 10,
         paddingLeft: 10,
-        backgroundColor : '#eeeeee'
+        backgroundColor : '#eeeeee',
+        borderRadius: 8,
       },
       buttonContainer: {
         width:'100%',
