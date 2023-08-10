@@ -18,7 +18,7 @@ export default function AllRecipeScreen({navigation}) {
   ];
 
   
-  const [recipeData, setRecipeData] = useState(data);
+   [recipeData, setRecipeData] = useState(data);
 
   useEffect(() => {
     

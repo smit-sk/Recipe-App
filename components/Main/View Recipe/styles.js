@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   },
   recipeImage: {
     width: '100%',
-    height: 0.3 * Dimensions.get('window').height, 
+    height: 0.3 * Dimensions.get('window').height,
     resizeMode: 'cover',
   },
   recipeContent: {
@@ -23,25 +23,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   backIcon: {
-    position: 'absolute',
-    top: 20, 
+    position: 'relative',
+    top: -220,
     left: 20,
-    zIndex: 1, 
   },
   arrowContainer: {
     backgroundColor: 'white',
     height: 35,
-    width: 30, 
+    width: 30,
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    alignSelf: 'center',
-    flex:1
   },
-  icon : {
-   paddingLeft : 8
-  }
-  
+  icon: {
+    paddingLeft: 8,
+  },
 });
 
 export default styles;
