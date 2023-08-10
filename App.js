@@ -8,6 +8,7 @@ import { store } from './Redux/store';
 import SignUpScreen from './components/Authentication/Signup/signup';
 import ForgotPasswordScreen from './components/Authentication/ForgotPassword/forgotpw';
 import HomeScreen from './components/Main/Home/home_screen';
+import ViewRecipe from './components/Main/View Recipe/view_recipe';
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -30,6 +31,10 @@ export default function App() {
             headerShown: false
           }} />
           <Stack.Screen name="Home" component={HomeScreen} options={
+          {
+            headerShown: false
+          }} />
+          <Stack.Screen name="View Recipe" component={ViewRecipe} options={
           {
             headerShown: false
           }} />

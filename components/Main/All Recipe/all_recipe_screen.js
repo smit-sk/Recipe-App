@@ -1,4 +1,4 @@
-import { View, Text , FlatList , Image } from 'react-native'
+import { View, Text , FlatList , Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import styles from './styles';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'; // Import useEffect and useState
 import {app} from "../../Database/config";
 const db = getFirestore(app); 
 
-export default function AllRecipeScreen() {
+export default function AllRecipeScreen({navigation}) {
 
   const data = [
     {
@@ -15,25 +15,6 @@ export default function AllRecipeScreen() {
       description: 'Creamy pasta with veggies and cheese',
       image: require('../../../assets/fries.jpg'),
     },
-    {
-      id: '1',
-      title: 'Healthy Salad',
-      description: 'Fresh veggies and greens with a tangy dressing',
-      image: require('.../../../assets/fries.jpg'),
-    },
-    {
-      id: '2',
-      title: 'Healthy Salad',
-      description: 'Fresh veggies and greens with a tangy dressing',
-      image: require('../../../assets/fries.jpg'),
-    },
-    {
-      id: '3',
-      title: 'Healthy Salad',
-      description: 'Fresh veggies and greens with a tangy dressing',
-      image: require('../../../assets/fries.jpg'),
-    },
-    // Add more recipe data as needed
   ];
 
   
@@ -57,13 +38,20 @@ export default function AllRecipeScreen() {
   }, []);
 
 
+  const onViewRecipe = (item)=>{
+    navigation.navigate('View Recipe' , {item});
+  } 
+
+
   const renderItem = ({ item }) => (
-    console.log("imageITEM",item.imageURI),
+    console.log("image url => ",item.imageURI),
+    <TouchableOpacity onPress = {()=> onViewRecipe(item)}>
     <View style={styles.recipeContainer}>
       <Image source={{uri:item.imageURI}} style={styles.recipeImage} />
       <Text style={styles.recipeTitle}>{item.recipeName}</Text>
       <Text style={styles.recipeDescription}>{item.description}</Text>
     </View>
+    </TouchableOpacity>
   );
 
   return (
