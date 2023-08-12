@@ -8,10 +8,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchAllRecipe } from '../../../Redux/all_recipe_slice';
 import { fetchRecipeFirestore } from '../../Database/recipeData';
 
+  
 export default function AllRecipeScreen({navigation}) {
   const dispatch = useDispatch();
   const recipe_list = useSelector((state)=>state.allRecipe.recipe_list);
 
+[recipeData, setRecipeData] = useState(data);
   useEffect(async () => {
       const recipeList = await fetchRecipeFirestore()
       console.log("RECIPE " , recipeList);
