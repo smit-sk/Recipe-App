@@ -1,11 +1,20 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  container: {
+  mainContainer:{
     flex: 1,
     backgroundColor: '#fff',
-    padding: 16,
+    padding: 20,
+    paddingTop:60,
   },
+  appBar:{
+    flexDirection : 'row',
+    justifyContent:'flex-start',
+    alignItems:'center',
+  },
+  container:{
+    paddingTop:10,
+  },  
   imageContainer: {
     alignItems: 'center',
     marginBottom: 16,
@@ -13,7 +22,15 @@ const styles = StyleSheet.create({
   recipeImage: {
     width: '100%',
     height: 200,
-    borderRadius: 20,
+    borderRadius: 15,
+  },
+  imageView:{
+    width : '100%',
+    height : 200,
+    borderRadius: 15,
+    flex :1 ,
+    justifyContent:'center',
+    
   },
   label: {
     fontSize: 16,

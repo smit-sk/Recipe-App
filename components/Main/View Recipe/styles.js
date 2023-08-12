@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
   recipeDescription: {
     fontSize: 16,
   },
+
   backIcon: {
     position: 'relative',
     top: -220,

@@ -1,47 +1,29 @@
 import { View, Text , FlatList , Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import styles from './styles';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
-import { useEffect, useState } from 'react'; // Import useEffect and useState
-import {app} from "../../Database/config";
-const db = getFirestore(app); 
 
+import { useEffect } from 'react'; 
+
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchAllRecipe } from '../../../Redux/all_recipe_slice';
+import { fetchRecipeFirestore } from '../../Database/recipeData';
+
+  
 export default function AllRecipeScreen({navigation}) {
+  const dispatch = useDispatch();
+  const recipe_list = useSelector((state)=>state.allRecipe.recipe_list);
 
-  const data = [
-    {
-      id: '0',
-      title: 'Delicious Pasta',
-      description: 'Creamy pasta with veggies and cheese',
-      image: require('../../../assets/fries.jpg'),
-    },
-  ];
+[recipeData, setRecipeData] = useState(data);
+  useEffect(async () => {
+      const recipeList = await fetchRecipeFirestore()
+      console.log("RECIPE " , recipeList);
+      dispatch(fetchAllRecipe(recipeList));
 
-  
-   [recipeData, setRecipeData] = useState(data);
-
-  useEffect(() => {
-    
-    const fetchData = async () => {
-      const recipeRef = collection(db, 'recipes');
-      const querySnapshot = await getDocs(recipeRef);
-  
-      const fetchedData = [];
-      querySnapshot.forEach((doc) => {
-        fetchedData.push({ id: doc.id, ...doc.data() });
-      });
-  
-      setRecipeData(fetchedData);
-    };
-  
-    fetchData();
   }, []);
-
 
   const onViewRecipe = (item)=>{
     navigation.navigate('View Recipe' , {item});
   } 
-
 
   const renderItem = ({ item }) => (
     console.log("image url => ",item.imageURI),
@@ -49,7 +31,7 @@ export default function AllRecipeScreen({navigation}) {
     <View style={styles.recipeContainer}>
       <Image source={{uri:item.imageURI}} style={styles.recipeImage} />
       <Text style={styles.recipeTitle}>{item.recipeName}</Text>
-      <Text style={styles.recipeDescription}>{item.description}</Text>
+      {/* <Text style={styles.recipeDescription}>{item.description}</Text> */}
     </View>
     </TouchableOpacity>
   );
@@ -57,7 +39,7 @@ export default function AllRecipeScreen({navigation}) {
   return (
     <View style={styles.container}>
       <FlatList
-        data={recipeData}
+        data={recipe_list}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.feedContainer}
