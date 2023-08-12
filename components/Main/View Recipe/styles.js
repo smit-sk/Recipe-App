@@ -22,9 +22,10 @@ const styles = StyleSheet.create({
   recipeDescription: {
     fontSize: 16,
   },
+
   backIcon: {
     position: 'absolute',
-    top: 20, 
+    top: 30, 
     left: 20,
     zIndex: 1, 
   },

@@ -5,6 +5,7 @@ import ProfileScreen from '../Profile/profile';
 import AllRecipeScreen from '../All Recipe/all_recipe_screen';
 import { Entypo , MaterialCommunityIcons } from '@expo/vector-icons';
 import AddRecipeScreen from '../Add Recipe/add_recipe_screen';
+import MyRecipe from '../My Recipe/my_recipe';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,7 +30,7 @@ export default function HomeScreen() {
           }
         }
         component={AllRecipeScreen} />
-      <Tab.Screen name="Add Recipe" 
+      <Tab.Screen name="My Recipe" 
         options={
           {
             tabBarActiveTintColor: "#008080",
@@ -46,7 +47,7 @@ export default function HomeScreen() {
             }
           }
         }
-       component={AddRecipeScreen} />
+       component={MyRecipe} />
       <Tab.Screen name="Profile"
       options={
           {

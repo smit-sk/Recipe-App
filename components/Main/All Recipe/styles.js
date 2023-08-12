@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
       borderRadius: 20,
       backgroundColor: '#f0f0f0',
       marginBottom: 16,
+      paddingBottom:16,
       overflow: 'hidden',
     },
     recipeImage: {
