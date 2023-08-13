@@ -3,7 +3,7 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ProfileScreen from '../Profile/profile';
 import AllRecipeScreen from '../All Recipe/all_recipe_screen';
-import { Entypo , MaterialCommunityIcons } from '@expo/vector-icons';
+import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import AddRecipeScreen from '../Add Recipe/add_recipe_screen';
 import MyRecipe from '../My Recipe/my_recipe';
 
@@ -21,7 +21,14 @@ export default function HomeScreen() {
               fontSize: 14
             },
             headerShown: true,
-            // tabBarBadge: 2,
+            headerStyle: {
+              backgroundColor: '#008080',
+            },
+            headerTitleStyle : {
+              fontSize: 22,
+              fontWeight : '600'
+            },
+            headerTintColor: '#fff',
             tabBarIcon: ({ focused, color, size }) => {
               return (
                 <Entypo name="list" size={size} color={color} />
@@ -30,7 +37,7 @@ export default function HomeScreen() {
           }
         }
         component={AllRecipeScreen} />
-      <Tab.Screen name="My Recipe" 
+      <Tab.Screen name="My Recipe"
         options={
           {
             tabBarActiveTintColor: "#008080",
@@ -39,18 +46,38 @@ export default function HomeScreen() {
               fontSize: 14
             },
             headerShown: true,
-            // tabBarBadge: 2,
-            tabBarIcon: ({ focused, color, size }) => {
+            headerStyle: {
+              backgroundColor: '#008080',
+            },
+            headerTitleStyle : {
+              fontSize: 22,
+              fontWeight : '600'
+            },
+            headerTintColor: '#fff',
+            tabBarIcon: ({color, size }) => {
               return (
                 <Entypo name="add-to-list" size={size} color={color} />
               )
             }
           }
         }
-       component={MyRecipe} />
+        component={MyRecipe} />
       <Tab.Screen name="Profile"
-      options={
+        options={
           {
+            tabBarLabelStyle: {
+              fontSize: 14
+            },
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: '#008080',
+              // '#e6f2f2',
+            },
+            headerTitleStyle : {
+              fontSize: 22,
+              fontWeight : '600'
+            },
+            headerTintColor: '#fff',
             tabBarActiveTintColor: "#008080",
             tabBarInActiveTintColor: "gray",
             tabBarLabelStyle: {
@@ -65,7 +92,7 @@ export default function HomeScreen() {
             }
           }
         }
-       component={ProfileScreen} />
+        component={ProfileScreen} />
     </Tab.Navigator>
   )
 }

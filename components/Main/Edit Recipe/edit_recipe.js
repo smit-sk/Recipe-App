@@ -1,55 +1,41 @@
 import React, { useEffect, useState } from 'react';
-import { Text, TextInput, TouchableOpacity, Image, ScrollView, View , Alert} from 'react-native';
+import { Text, TextInput, TouchableOpacity, Image, ScrollView, View, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import styles from '../Add Recipe/styles';
 import { Ionicons } from '@expo/vector-icons';
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, updateDoc, doc } from 'firebase/firestore';
 import app from "../../Database/config";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { firebase } from '../../Database/config';
 import { MaterialIcons } from '@expo/vector-icons';
-import { fetchAllRecipe , fetchRecipeById} from '../../../Redux/all_recipe_slice';
+import { fetchAllRecipe, fetchRecipeById } from '../../../Redux/all_recipe_slice';
 import { fetchRecipeFirestore, fetchRecipebyIdFirestore } from '../../Database/recipeData';
-
 const db = getFirestore(app);
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUser } from '../../Database/auth';
 
-export default function AddRecipeScreen({ navigation }) {
+export default function EditRecipeScreen({ navigation, route }) {
+  const { item } = route.params;
+  const [userId, setUserId] = useState("");
+  useEffect(() => {
+    async function fetchData() {
+      const currentUser = await getCurrentUser();
+      if (currentUser) {
+        setUserId(currentUser.uid)
+      }
+    }
+    fetchData();
+  }, [dispatch]);
+
 
   const dispatch = useDispatch();
 
-  const [recipeName, setRecipeName] = useState('');
-  const [description, setDescription] = useState('');
-  const [imageURI, setImageURI] = useState('');
+  const [recipeName, setRecipeName] = useState(item.recipeName);
+  const [description, setDescription] = useState(item.description);
+  const [imageURI, setImageURI] = useState(item.imageURI);
   const [isFormValid, setIsFormValid] = useState(false);
-  const [user, setUser] = useState("");
-  const [userId, setUserId]=useState("");
-  useEffect(() => {
-    printUserInfo();
-  }, []);
 
-  async function printUserInfo() {
-    try {
-      const currentUser = await getCurrentUser();
-      if (currentUser) {
-        setUserId(currentUser.uid);
-        const user =  {
-          id : currentUser.uid,
-          name : currentUser.displayName,
-          email : currentUser.email,
-        }
-        setUser(user);
-        console.log("USer : ", user)
-      } else { 
-        console.log("No user is currently logged in.");
-      }
-    } catch (error) {
-      console.error("Error fetching current user:", error);
-    }
-  }
- 
 
   const handleImageSelection = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -75,53 +61,50 @@ export default function AddRecipeScreen({ navigation }) {
 
   const handleAddRecipe = async () => {
     try {
-      if(imageURI != ""){
-      const response = await fetch(imageURI);
-      const blob = await response.blob();
-      const storage = getStorage(firebase);
-      const fileName = imageURI.split('/').pop();
+      if (imageURI != "") {
+        const response = await fetch(imageURI);
+        const blob = await response.blob();
+        const storage = getStorage(firebase);
+        const fileName = imageURI.split('/').pop();
 
-      console.log("fileName" + fileName);
-      const storageRef = ref(storage, 'recipeImages/' + fileName);
-      await uploadBytes(storageRef, blob);
-      const imageUrl = await getDownloadURL(storageRef);
-      if (recipeName!="" & description!="") {
-        console.log("Form Valid")
-        const recipeRef = collection(db, 'recipes');
-        const newRecipe = {
-          recipeName: recipeName,
-          description: description,
-          imageURI: imageUrl,
-          userId : userId
-        };
+        console.log("fileName" + fileName);
+        const storageRef = ref(storage, 'recipeImages/' + fileName);
+        await uploadBytes(storageRef, blob);
+        const imageUrl = await getDownloadURL(storageRef);
+        if (recipeName != "" & description != "") {
+          console.log("Form Valid")
 
-        await addDoc(recipeRef, newRecipe);
-        setRecipeName('');
-        setDescription('');
-        setImageURI('');
-        const data = await fetchRecipebyIdFirestore(userId);
-        dispatch(fetchRecipeById(data));
-        const data2 = await fetchRecipeFirestore();
-        dispatch(fetchAllRecipe(data2));
-        
-        console.log('Recipe added to Firebase Realtime Database');
-      }else{
-        console.log("Form InValid")
-        Alert.alert("Invalid Recipe", "Please fill all the fields.", [
+          const recipeRef = doc(db, 'recipes', item.id);
+          const newRecipe = {
+            recipeName: recipeName,
+            description: description,
+            imageURI: imageURI,
+          };
+          await updateDoc(recipeRef, newRecipe)
+
+          const data = await fetchRecipebyIdFirestore(userId);
+          dispatch(fetchRecipeById(data));
+          const data2 = await fetchRecipeFirestore();
+          dispatch(fetchAllRecipe(data2));
+
+          console.log('Recipe updated to Firebase Realtime Database');
+        } else {
+          console.log("Form InValid")
+          Alert.alert("Invalid Recipe", "Please fill all the fields.", [
+            {
+              text: 'Ok',
+              onPress: () => console.log('Image alert Pressed'),
+              style: 'default'
+            },])
+        }
+      } else {
+        Alert.alert("Invalid Recipe", "Select a recipe image", [
           {
             text: 'Ok',
             onPress: () => console.log('Image alert Pressed'),
-            style:'default'
+            style: 'default'
           },])
       }
-    }else{
-      Alert.alert("Invalid Recipe", "Select a recipe image", [
-        {
-          text: 'Ok',
-          onPress: () => console.log('Image alert Pressed'),
-          style:'default'
-        },])
-    }
     } catch (error) {
       console.error('Error adding recipe: ', error);
     }
@@ -144,13 +127,14 @@ export default function AddRecipeScreen({ navigation }) {
           backgroundColor="white"
           onPress={() => navigation.goBack()}
         />
-        <Text style={{ fontSize: 20, fontWeight: '600' }}> Add Recipe</Text>
+        <Text style={{ fontSize: 20, fontWeight: '600' }}> Edit Recipe</Text>
       </View>
       <ScrollView style={styles.container}>
         <View style={styles.imageView}>
           <TouchableOpacity style={styles.imageContainer} onPress={handleImageSelection}>
             {imageURI ? (
               <Image source={{ uri: imageURI }} style={styles.recipeImage} />
+      
             ) : (
               <>
                 <Ionicons name="md-images-outline" size={24} color="black" />
@@ -179,7 +163,7 @@ export default function AddRecipeScreen({ navigation }) {
         />
 
         <TouchableOpacity style={styles.buttonContainer} onPress={handleAddRecipe}>
-          <Text style={styles.buttonText}>Add Recipe</Text>
+          <Text style={styles.buttonText}>Update Recipe</Text>
         </TouchableOpacity>
       </ScrollView>
     </View>

@@ -16,28 +16,14 @@ const styles = StyleSheet.create({
   container:{
     paddingTop:10,
   },  
-  iconContainer:{
-    position: 'relative',
-    top: -220,
-    left: 20,
-  },  
   imageContainer: {
     alignItems: 'center',
     marginBottom: 16,
   },
-  iconContainer:{
-    position: 'relative',
-    top: -220,
-    left: 20,
-  }, 
   recipeImage: {
-   
     width: '100%',
     height: 200,
     borderRadius: 15,
-     //position: 'relative',
-    // top: -220,
-    // left: 20,
   },
   imageView:{
     width : '100%',

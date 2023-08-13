@@ -1,4 +1,4 @@
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import app from "./config";
 
 const auth = getAuth(app);
@@ -26,7 +26,7 @@ export async function loginAuth(email, password){
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-       
+        
         userDetails.errorCode = errorCode;
         userDetails.errorMessage = errorMessage;
         userDetails.success = false;
@@ -62,6 +62,18 @@ export async function signupAuth(email, password){
       return false;
     });
   })
- 
 
+}
+
+export function getCurrentUser() {
+  return new Promise((resolve) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        resolve(user);
+      } else {
+        resolve(null);
+      }
+      unsubscribe(); 
+    });
+  });
 }

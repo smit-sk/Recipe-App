@@ -12,7 +12,8 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   recipeContent: {
-    padding: 20,
+   paddingHorizontal : 20 , 
+   paddingTop:0
   },
   recipeTitle: {
     fontSize: 24,

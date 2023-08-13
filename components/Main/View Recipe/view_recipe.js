@@ -7,7 +7,6 @@ export default function ViewRecipe({ route, navigation }) {
   const { item } = route.params;
 
   const goBack = () => {
-    console.log('Pressed Back');
     navigation.goBack();
   };
 

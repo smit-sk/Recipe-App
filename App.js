@@ -11,6 +11,7 @@ import HomeScreen from './components/Main/Home/home_screen';
 import ViewRecipe from './components/Main/View Recipe/view_recipe';
 import AddRecipeScreen from './components/Main/Add Recipe/add_recipe_screen';
 import MyRecipe from './components/Main/My Recipe/my_recipe';
+import EditRecipeScreen from './components/Main/Edit Recipe/edit_recipe';
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -41,6 +42,10 @@ export default function App() {
             headerShown: false
           }} />
           <Stack.Screen name="Add Recipe" component={AddRecipeScreen} options={
+          {
+            headerShown: false
+          }} />
+          <Stack.Screen name="Edit Recipe" component={EditRecipeScreen} options={
           {
             headerShown: false
           }} />

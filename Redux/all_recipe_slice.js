@@ -9,6 +9,9 @@ const initialState =  {
                 image: require('../assets/fries.jpg'),
               },
         ],
+        my_recipe : [
+
+        ]
 }
 
 export const allRecipeSlice = createSlice({
@@ -17,11 +20,13 @@ export const allRecipeSlice = createSlice({
     reducers : {
         fetchAllRecipe : (state , action)=>{
             state.recipe_list = action.payload;
-            console.log("Fetch Recipe Called " , state.payload)
         },
+        fetchRecipeById:(state,action)=>{
+            state.my_recipe = action.payload;
+        }
         
     }
 })
 
-export const { fetchAllRecipe } = allRecipeSlice.actions;
+export const { fetchAllRecipe , fetchRecipeById } = allRecipeSlice.actions;
 export default allRecipeSlice.reducer;
